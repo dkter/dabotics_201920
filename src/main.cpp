@@ -24,7 +24,7 @@
 using namespace vex;
 
 void selfControl();
-void poo();
+void poo2();
 
 int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
