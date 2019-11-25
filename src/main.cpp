@@ -13,8 +13,8 @@
 // Controller1          controller                    
 // Claw                 motor         1               
 // Drivetrain           drivetrain    20, 11          
-// Shaft_Right          motor         2               
-// Shaft_Left           motor         10              
+// ShaftRight          motor         2               
+// ShaftLeft           motor         10              
 // CenterWheel          motor         16              
 // Vision7              vision        7               
 // ---- END VEXCODE CONFIGURED DEVICES ----
@@ -34,8 +34,8 @@ int main() {
 
 void selfControl(){
 
-  Shaft_Left.setStopping(hold);
-  Shaft_Right.setStopping(hold);
+  ShaftLeft.setStopping(hold);
+  ShaftRight.setStopping(hold);
   Claw.setStopping(hold);
 
   int shaftSpeed = 50;
@@ -57,16 +57,16 @@ void selfControl(){
 
     // Shaft control
     if (Controller1.ButtonUp.pressing()){
-      Shaft_Left.spin(forward, shaftSpeed - p, percent);
-      Shaft_Right.spin(forward, shaftSpeed - p, percent);
+      ShaftLeft.spin(forward, shaftSpeed - p, percent);
+      ShaftRight.spin(forward, shaftSpeed - p, percent);
     }
     else if (Controller1.ButtonDown.pressing()){
-      Shaft_Left.spin(reverse, shaftSpeed - p, percent);
-      Shaft_Right.spin(reverse, shaftSpeed - p, percent);
+      ShaftLeft.spin(reverse, shaftSpeed - p, percent);
+      ShaftRight.spin(reverse, shaftSpeed - p, percent);
     }
     else {
-      Shaft_Left.stop();
-      Shaft_Right.stop();
+      ShaftLeft.stop();
+      ShaftRight.stop();
     }
 
     // Claw control
