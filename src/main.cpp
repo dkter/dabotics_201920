@@ -81,7 +81,16 @@ void selfControl(){
     }
 
     // Center wheel control
-    CenterWheel.spin(forward, Controller1.Axis4.position(percent), percent);
+
+    if (Controller1.Axis4.position() < 0){
+      CenterWheel.spin(forward, Controller1.Axis4.position(percent) + p, percent);
+    }
+    else if (Controller1.Axis4.position() > 0) {
+      CenterWheel.spin(forward, Controller1.Axis4.position(percent) - p, percent);
+    } 
+    else {
+      CenterWheel.setVelocity(0, percent);
+    }
 
   }
 }
