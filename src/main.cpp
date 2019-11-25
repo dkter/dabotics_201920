@@ -46,7 +46,6 @@ void selfControl(){
   int p = 0;
 
   while (true){
-
     // Percision hold
     if (Controller1.ButtonA.pressing()){
       p = preciseSub;
@@ -91,6 +90,5 @@ void selfControl(){
     else {
       CenterWheel.setVelocity(0, percent);
     }
-
   }
 }
