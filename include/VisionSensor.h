@@ -1,6 +1,5 @@
 /*vex-vision-config:begin*/
-#include "v5.h"
-#include "v5_vcs.h"
+#include "vex.h"
 vex::vision::signature GREEN_CUBE = vex::vision::signature (1, -7665, -4477, -6071, -4051, -1627, -2839, 2.6, 0);
 vex::vision::signature PURPLE_CUBE = vex::vision::signature (2, 469, 1861, 1165, 3767, 8479, 6123, 2, 0);
 vex::vision::signature ORANGE_CUBE = vex::vision::signature (3, 5845, 8139, 6992, -1937, -1069, -1503, 3, 0);
