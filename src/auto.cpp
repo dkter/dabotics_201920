@@ -19,14 +19,18 @@ void align() {
 
   do {
     VisionSensor.takeSnapshot(GREEN_CUBE);
+    Brain.Screen.clearScreen();
     if (VisionSensor.largestObject.exists && VisionSensor.largestObject.width > 50) {
+      Brain.Screen.print(VisionSensor.largestObject.centerX);
       difference = VisionSensor.largestObject.centerX - (VISION_CENTRE + OFFSET);
       if (difference < 0) {
         // go left
+        Brain.Screen.print("Left");
         CenterWheel.spinFor(-5, degrees);
       }
       else {
         // go right
+        Brain.Screen.print("Right");
         CenterWheel.spinFor(5, degrees);
       }
     }
@@ -34,14 +38,18 @@ void align() {
 }
 
 void grab() {
-  Claw.spinFor(-90, degrees);
+  Claw.spin(reverse);
+  task::sleep(500);
+  Claw.stop();
 }
 
 void drop() {
-  Claw.spinFor(90, degrees);
+  Claw.spin(forward);
+  task::sleep(500);
+  Claw.stop();
 }
 
 void lift(int deg) {
-  ShaftLeft.spinFor(-deg, degrees);
-  ShaftRight.spinFor(-deg, degrees);
+  ShaftLeft.spinFor(deg, degrees);
+  ShaftRight.spinFor(deg, degrees);
 }
