@@ -1,4 +1,7 @@
 void autonomous();
+
+void blue_left4();
+
 void align();
 void grab();
 void drop();

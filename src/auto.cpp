@@ -3,12 +3,27 @@
 #include "VisionSensor.h"
 
 void autonomous() {
-    Drivetrain.turnFor(90, degrees);
-    // Drivetrain.driveFor(15, inches);
-    // grab();
-    // lift(30);
-    // Drivetrain.driveFor(-10, inches);
-    // drop();
+    blue_left4();
+}
+
+void blue_left4() {
+    Drivetrain.driveFor(16, inches);
+    grab();
+    lift(60);
+    Drivetrain.driveFor(-12, inches);
+    Drivetrain.turnFor(-90, degrees);
+    CenterWheel.spinFor(1, seconds, -100, rpm );
+    Drivetrain.setDriveVelocity(20, rpm);
+    Drivetrain.drive(forward);
+    task::sleep(2000);
+    Drivetrain.stop();
+    Drivetrain.turnFor(-45, degrees);
+    Drivetrain.drive(forward);
+    task::sleep(2000);
+    Drivetrain.stop();
+    lift(-50);
+    drop();
+    Drivetrain.driveFor(-10, inches);
     //align();
 }
 
@@ -40,13 +55,13 @@ void align() {
 
 void grab() {
     Claw.spin(reverse);
-    task::sleep(500);
+    task::sleep(1000);
     Claw.stop();
 }
 
 void drop() {
     Claw.spin(forward);
-    task::sleep(500);
+    task::sleep(1000);
     Claw.stop();
 }
 
@@ -55,10 +70,10 @@ void lift(int deg) {
     ShaftRight.spinFor(deg, degrees);
 }
 
-void turn(int deg) {
-    const double WHEELBASE_RAD = 13.25 * sqrt(2);
-    double radians = deg * 3.14159 / 180.0;
-    double distance = WHEELBASE_RAD * deg;
-    LeftDriveSmart.spinFor(distance, degrees, false);
-    RightDriveSmart.spinFor(-distance, degrees, false);
-}
+// void turn(int deg) {
+//     const double WHEELBASE_RAD = 13.25 * sqrt(2);
+//     double radians = deg * 3.14159 / 180.0;
+//     double distance = WHEELBASE_RAD * deg;
+//     LeftDriveSmart.spinFor(distance, degrees, false);
+//     RightDriveSmart.spinFor(-distance, degrees, false);
+// }
