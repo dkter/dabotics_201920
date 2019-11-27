@@ -53,3 +53,11 @@ void lift(int deg) {
   ShaftLeft.spinFor(deg, degrees);
   ShaftRight.spinFor(deg, degrees);
 }
+
+void turn(int deg) {
+  const double WHEELBASE_RAD = 16 * sqrt(2);
+  double radians = deg * 3.14159 / 180.0;
+  double distance = WHEELBASE_RAD * deg;
+  LeftDriveSmart.spinFor(distance, degrees);
+  RightDriveSmart.spinFor(-distance, degrees);
+}
