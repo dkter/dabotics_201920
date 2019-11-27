@@ -11,10 +11,10 @@ brain  Brain;
 controller Controller1 = controller(primary);
 motor LeftDriveSmart = motor(PORT20, ratio18_1, false);
 motor RightDriveSmart = motor(PORT11, ratio18_1, true);
-drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 319.19, 295, 130, mm, 1);
+drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 319.19, 342.9, 130, mm, 1);
 motor ShaftRight = motor(PORT2, ratio36_1, true);
 motor ShaftLeft = motor(PORT10, ratio36_1, false);
-motor CenterWheel = motor(PORT16, ratio18_1, false);
+motor CenterWheel = motor(PORT16, ratio18_1, true);
 /*vex-vision-config:begin*/
 signature Vision7__SIG_1 = signature (1, 0, 0, 0, 0, 0, 0, 2.5, 0);
 signature Vision7__SIG_2 = signature (2, 0, 0, 0, 0, 0, 0, 2.5, 0);

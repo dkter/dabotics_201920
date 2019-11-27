@@ -9,6 +9,17 @@
 // Vision7              vision        7               
 // Claw                 motor         1               
 // ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Drivetrain           drivetrain    20, 11          
+// ShaftRight           motor         2               
+// ShaftLeft            motor         10              
+// CenterWheel          motor         16              
+// Vision7              vision        7               
+// Claw                 motor         1               
+// ---- END VEXCODE CONFIGURED DEVICES ----
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
@@ -60,12 +71,12 @@ void selfControl(){
     int p = 0;
 
     while (true){
-        // Percision hold
+        // Precision hold
         if (Controller1.ButtonA.pressing()){
-            p = preciseSub;
+            p = 0;
         }
         else{
-            p = 0;
+            p = preciseSub;
         }
 
         // Shaft control
@@ -94,12 +105,11 @@ void selfControl(){
         }
 
         // Center wheel control
-
         if (Controller1.Axis4.position() < 0){
-            CenterWheel.spin(forward, Controller1.Axis4.position(percent) + p, percent);
+            CenterWheel.spin(forward, Controller1.Axis4.position(percent) - p, percent);
         }
         else if (Controller1.Axis4.position() > 0) {
-            CenterWheel.spin(forward, Controller1.Axis4.position(percent) - p, percent);
+            CenterWheel.spin(forward, Controller1.Axis4.position(percent) + p, percent);
         } 
         else {
             CenterWheel.setVelocity(0, percent);

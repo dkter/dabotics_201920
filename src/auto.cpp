@@ -3,11 +3,12 @@
 #include "VisionSensor.h"
 
 void autonomous() {
-    Drivetrain.driveFor(15, inches);
-    grab();
-    lift(30);
-    Drivetrain.driveFor(-10, inches);
-    drop();
+    Drivetrain.turnFor(90, degrees);
+    // Drivetrain.driveFor(15, inches);
+    // grab();
+    // lift(30);
+    // Drivetrain.driveFor(-10, inches);
+    // drop();
     //align();
 }
 
@@ -55,9 +56,9 @@ void lift(int deg) {
 }
 
 void turn(int deg) {
-    const double WHEELBASE_RAD = 16 * sqrt(2);
+    const double WHEELBASE_RAD = 13.25 * sqrt(2);
     double radians = deg * 3.14159 / 180.0;
     double distance = WHEELBASE_RAD * deg;
-    LeftDriveSmart.spinFor(distance, degrees);
-    RightDriveSmart.spinFor(-distance, degrees);
+    LeftDriveSmart.spinFor(distance, degrees, false);
+    RightDriveSmart.spinFor(-distance, degrees, false);
 }

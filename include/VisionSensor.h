@@ -7,5 +7,5 @@ vex::vision::signature JAKOB = vex::vision::signature (4, 0, 0, 0, 0, 0, 0, 3, 0
 vex::vision::signature SIG_5 = vex::vision::signature (5, 0, 0, 0, 0, 0, 0, 3, 0);
 vex::vision::signature SIG_6 = vex::vision::signature (6, 0, 0, 0, 0, 0, 0, 3, 0);
 vex::vision::signature SIG_7 = vex::vision::signature (7, 0, 0, 0, 0, 0, 0, 3, 0);
-vex::vision VisionSensor = vex::vision (vex::PORT6, 50, GREEN_CUBE, PURPLE_CUBE, ORANGE_CUBE, JAKOB, SIG_5, SIG_6, SIG_7);
+vex::vision VisionSensor = vex::vision (vex::PORT6, 48, GREEN_CUBE, PURPLE_CUBE, ORANGE_CUBE, JAKOB, SIG_5, SIG_6, SIG_7);
 /*vex-vision-config:end*/
