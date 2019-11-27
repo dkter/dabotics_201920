@@ -40,70 +40,69 @@ competition Competition;
 void selfControl();
 
 int main() {
-  // Initializing Robot Configuration. DO NOT REMOVE!
-  vexcodeInit();
+    // Initializing Robot Configuration. DO NOT REMOVE!
+    vexcodeInit();
 
-  Competition.autonomous(autonomous);
-  Competition.drivercontrol(selfControl);
+    Competition.autonomous(autonomous);
+    Competition.drivercontrol(selfControl);
 }
 
 void selfControl(){
+    ShaftLeft.setStopping(hold);
+    ShaftRight.setStopping(hold);
+    Claw.setStopping(hold);
 
-  ShaftLeft.setStopping(hold);
-  ShaftRight.setStopping(hold);
-  Claw.setStopping(hold);
+    int shaftSpeed = 50;
+    int clawSpeed = 50;
+    int driveTrainSpeed = 50;
+    int preciseSub = 40;
 
-  int shaftSpeed = 50;
-  int clawSpeed = 50;
-  int driveTrainSpeed = 50;
-  int preciseSub = 40;
+    int p = 0;
 
-  int p = 0;
+    while (true){
+        // Percision hold
+        if (Controller1.ButtonA.pressing()){
+            p = preciseSub;
+        }
+        else{
+            p = 0;
+        }
 
-  while (true){
-    // Percision hold
-    if (Controller1.ButtonA.pressing()){
-      p = preciseSub;
-    }
-    else{
-      p = 0;
-    }
+        // Shaft control
+        if (Controller1.ButtonUp.pressing()){
+            ShaftLeft.spin(forward, shaftSpeed - p, percent);
+            ShaftRight.spin(forward, shaftSpeed - p, percent);
+        }
+        else if (Controller1.ButtonDown.pressing()){
+            ShaftLeft.spin(reverse, shaftSpeed - p, percent);
+            ShaftRight.spin(reverse, shaftSpeed - p, percent);
+        }
+        else {
+            ShaftLeft.stop();
+            ShaftRight.stop();
+        }
 
-    // Shaft control
-    if (Controller1.ButtonUp.pressing()){
-      ShaftLeft.spin(forward, shaftSpeed - p, percent);
-      ShaftRight.spin(forward, shaftSpeed - p, percent);
-    }
-    else if (Controller1.ButtonDown.pressing()){
-      ShaftLeft.spin(reverse, shaftSpeed - p, percent);
-      ShaftRight.spin(reverse, shaftSpeed - p, percent);
-    }
-    else {
-      ShaftLeft.stop();
-      ShaftRight.stop();
-    }
+        // Claw control
+        if (Controller1.ButtonL2.pressing()){
+            Claw.spin(forward, clawSpeed - p, percent);
+        }
+        else if (Controller1.ButtonR2.pressing()){
+            Claw.spin(reverse, clawSpeed - p, percent);
+        }
+        else {
+            Claw.stop();
+        }
 
-    // Claw control
-    if (Controller1.ButtonL2.pressing()){
-      Claw.spin(forward, clawSpeed - p, percent);
-    }
-    else if (Controller1.ButtonR2.pressing()){
-      Claw.spin(reverse, clawSpeed - p, percent);
-    }
-    else {
-      Claw.stop();
-    }
+        // Center wheel control
 
-    // Center wheel control
-
-    if (Controller1.Axis4.position() < 0){
-      CenterWheel.spin(forward, Controller1.Axis4.position(percent) + p, percent);
+        if (Controller1.Axis4.position() < 0){
+            CenterWheel.spin(forward, Controller1.Axis4.position(percent) + p, percent);
+        }
+        else if (Controller1.Axis4.position() > 0) {
+            CenterWheel.spin(forward, Controller1.Axis4.position(percent) - p, percent);
+        } 
+        else {
+            CenterWheel.setVelocity(0, percent);
+        }
     }
-    else if (Controller1.Axis4.position() > 0) {
-      CenterWheel.spin(forward, Controller1.Axis4.position(percent) - p, percent);
-    } 
-    else {
-      CenterWheel.setVelocity(0, percent);
-    }
-  }
 }
