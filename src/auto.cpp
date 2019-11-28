@@ -73,11 +73,11 @@ void blue_right_tower() {
 
     // tHIS MIGHT NOT WORK
     // turn towards corner
-    Drivetrain.turnFor(135, degrees);
+    Drivetrain.turnFor(-135, degrees);
     Drivetrain.driveFor(TILE_LENGTH * sqrt(2), inches);
-    Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
 
     // try to align with corner
+    Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
     Drivetrain.drive(forward);
     task::sleep(2000);
     Drivetrain.stop();
