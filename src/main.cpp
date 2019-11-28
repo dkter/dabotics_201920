@@ -1,113 +1,3 @@
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         2               
-// ShaftLeft            motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         2               
-// ShaftLeft            motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         2               
-// ShaftLeft            motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         2               
-// ShaftLeft            motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         2               
-// ShaftLeft            motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         2               
-// ShaftLeft            motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         2               
-// ShaftLeft            motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         2               
-// ShaftLeft            motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         2               
-// ShaftLeft            motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         2               
-// ShaftLeft            motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
@@ -131,12 +21,11 @@
 
 #include "vex.h"
 #include "auto.h"
+#include "main.h"
 
 using namespace vex;
 
 competition Competition;
-
-void selfControl();
 
 int main() {
     // Initializing Robot Configuration. DO NOT REMOVE!
@@ -157,9 +46,10 @@ namespace p {
 void selfControl(){
     int shaftSpeed = 50;
     int clawSpeed = 50;
-    int driveTrainSpeed = 50;
     int preciseSub = 40;
 
+    int visionWidth = 316;
+    int offset = 20;
 
     while (true){
         // Precision hold
@@ -205,5 +95,27 @@ void selfControl(){
         else {
             CenterWheel.setVelocity(0, percent);
         }
+
+        if (Controller1.ButtonB.pressing()) {align(visionWidth, offset);}
     }
+}
+
+// Green must be set up
+void align(int visionWidth, int offset){
+
+    double sprintTime = 0.5;
+
+    Vision7.takeSnapshot(Vision7__SIG_1);
+
+    if (Vision7.objects[0].centerX > (visionWidth/2 + offset)){
+        CenterWheel.spin(reverse, 30, percent);
+        wait(sprintTime, seconds);
+        CenterWheel.stop();
+    } 
+    else if (Vision7.objects[0].centerX < (visionWidth/2 - offset)){
+        CenterWheel.spin(forward, 30, percent);
+        wait(sprintTime, seconds);
+        CenterWheel.stop();
+    }
+
 }
