@@ -24,7 +24,27 @@ void blue_left4() {
     lift(-50);
     drop();
     Drivetrain.driveFor(-10, inches);
-    //align();
+}
+
+
+void red_left4() {
+    Drivetrain.driveFor(16, inches);
+    grab();
+    lift(60);
+    Drivetrain.driveFor(-12, inches);
+    Drivetrain.turnFor(90, degrees);
+    CenterWheel.spinFor(1, seconds, 100, rpm );
+    Drivetrain.setDriveVelocity(20, rpm);
+    Drivetrain.drive(forward);
+    task::sleep(2000);
+    Drivetrain.stop();
+    Drivetrain.turnFor(45, degrees);
+    Drivetrain.drive(forward);
+    task::sleep(2000);
+    Drivetrain.stop();
+    lift(-50);
+    drop();
+    Drivetrain.driveFor(-10, inches);
 }
 
 void align() {
