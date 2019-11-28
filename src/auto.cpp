@@ -2,6 +2,11 @@
 #include "vex.h"
 #include "VisionSensor.h"
 
+constexpr float ROBOT_LENGTH = 18;
+constexpr float CUBE_WIDTH = 5.5;
+constexpr float LENGTH_TO_CLAW = ROBOT_LENGTH - (CUBE_WIDTH / 2);
+constexpr float TILE_LENGTH = 24;
+
 void autonomous() {
     blue_left4();
 }
@@ -26,7 +31,6 @@ void blue_left4() {
     Drivetrain.driveFor(-10, inches);
 }
 
-
 void red_left4() {
     Drivetrain.driveFor(16, inches);
     grab();
@@ -44,6 +48,43 @@ void red_left4() {
     Drivetrain.stop();
     lift(-50);
     drop();
+    Drivetrain.driveFor(-10, inches);
+}
+
+void blue_right_tower() {
+    // Drive forward to first green cube
+    Drivetrain.driveFor(TILE_LENGTH - LENGTH_TO_CLAW, inches);
+
+    // pick it up and move it out of the way
+    grab();
+    lift(60);
+    Drivetrain.turnFor(45, degrees);
+    drop();
+    Drivetrain.turnFor(-45, degrees);
+    lift(-60);
+
+    // drive forward to stack of 4
+    Drivetrain.driveFor(TILE_LENGTH, inches);
+
+    // grab
+    grab();
+    lift(60);
+
+    // tHIS MIGHT NOT WORK
+    // turn towards corner
+    Drivetrain.turnFor(135, degrees);
+    Drivetrain.driveFor(TILE_LENGTH * sqrt(2), inches);
+    Drivetrain.setDriveVelocity(20, rpm);
+
+    // try to align with corner
+    Drivetrain.drive(forward);
+    task::sleep(2000);
+    Drivetrain.stop();
+
+    // drop
+    lift(-50);
+    drop();
+
     Drivetrain.driveFor(-10, inches);
 }
 
