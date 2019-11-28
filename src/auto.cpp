@@ -89,6 +89,24 @@ void blue_right_tower() {
     Drivetrain.driveFor(-10, inches);
 }
 
+void blue_far_right_1() {
+    Drivetrain.driveFor(TILE_LENGTH - LENGTH_TO_CLAW, inches);
+
+    grab();
+    lift(60);
+    Drivetrain.turnFor(-45, degrees);
+
+    Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
+    Drivetrain.drive(forward);
+    task::sleep(2000);
+    Drivetrain.stop();
+
+    lift(-50);
+    drop();
+
+    Drivetrain.driveFor(-10, inches);
+}
+
 void align() {
     int TOLERANCE = 10;
     int OFFSET = 0;
