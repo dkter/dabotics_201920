@@ -147,7 +147,7 @@ void drop() {
 }
 
 void lift(int deg) {
-    ShaftLeft.spinFor(deg, degrees);
+    ShaftLeft.spinFor(deg, degrees, false);
     ShaftRight.spinFor(deg, degrees);
 }
 
