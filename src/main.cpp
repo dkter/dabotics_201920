@@ -39,35 +39,32 @@ int main() {
     Competition.drivercontrol(selfControl);
 }
 
-namespace p {
-    int p = 0;
-}
-
 void selfControl(){
     int shaftSpeed = 50;
     int clawSpeed = 50;
     int preciseSub = 40;
-
     int visionWidth = 316;
     int offset = 20;
+
+    int p = 0;
 
     while (true){
         // Precision hold
         if (Controller1.ButtonA.pressing()){
-            p::p = 0;
+            p = 0;
         }
         else{
-            p::p = preciseSub;
+            p = preciseSub;
         }
 
         // Shaft control
         if (Controller1.ButtonUp.pressing()){
-            ShaftLeft.spin(forward, shaftSpeed - p::p, percent);
-            ShaftRight.spin(forward, shaftSpeed - p::p, percent);
+            ShaftLeft.spin(forward, shaftSpeed - p, percent);
+            ShaftRight.spin(forward, shaftSpeed - p, percent);
         }
         else if (Controller1.ButtonDown.pressing()){
-            ShaftLeft.spin(reverse, shaftSpeed - p::p, percent);
-            ShaftRight.spin(reverse, shaftSpeed - p::p, percent);
+            ShaftLeft.spin(reverse, shaftSpeed - p, percent);
+            ShaftRight.spin(reverse, shaftSpeed - p, percent);
         }
         else {
             ShaftLeft.stop();
@@ -76,10 +73,10 @@ void selfControl(){
 
         // Claw control
         if (Controller1.ButtonL2.pressing()){
-            Claw.spin(forward, clawSpeed - p::p, percent);
+            Claw.spin(forward, clawSpeed - p, percent);
         }
         else if (Controller1.ButtonR2.pressing()){
-            Claw.spin(reverse, clawSpeed - p::p, percent);
+            Claw.spin(reverse, clawSpeed - p, percent);
         }
         else {
             Claw.stop();
@@ -87,10 +84,10 @@ void selfControl(){
 
         // Center wheel control
         if (Controller1.Axis4.position() < 0){
-            CenterWheel.spin(forward, Controller1.Axis4.position(percent) - p::p, percent);
+            CenterWheel.spin(forward, Controller1.Axis4.position(percent) - p, percent);
         }
         else if (Controller1.Axis4.position() > 0) {
-            CenterWheel.spin(forward, Controller1.Axis4.position(percent) + p::p, percent);
+            CenterWheel.spin(forward, Controller1.Axis4.position(percent) + p, percent);
         } 
         else {
             CenterWheel.setVelocity(0, percent);
