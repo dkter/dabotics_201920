@@ -6,18 +6,18 @@ constexpr float ROBOT_LENGTH = 18;
 constexpr float CUBE_WIDTH = 5.5;
 constexpr float LENGTH_TO_CLAW = ROBOT_LENGTH - (CUBE_WIDTH / 2);
 constexpr float TILE_LENGTH = 24;
-constexpr float CUBE_HEIGHT_DEG = 75;
+constexpr float CUBE_HEIGHT_DEG = 100;
 constexpr int VERY_SLOW_SPEED = 25; //rpm
 
 void autonomous() {
-    left4(Alliance::blue);
+    left4_pickup3(Alliance::blue);
 }
 
 void left4(Alliance alliance) {
     // go to cube and drop cube on top
     grab();
     lift(CUBE_HEIGHT_DEG, false);
-    Drivetrain.driveFor(16, inches);
+    Drivetrain.driveFor(TILE_LENGTH + 2*CUBE_WIDTH - ROBOT_LENGTH, inches);
     drop();
     lift(-CUBE_HEIGHT_DEG);
 
@@ -26,20 +26,20 @@ void left4(Alliance alliance) {
     lift(60, false);
 
     // go backwards
-    Drivetrain.driveFor(-12, inches);
+    Drivetrain.driveFor(-11, inches);
     if (alliance == Alliance::blue) {
         Drivetrain.turnFor(-90, degrees);
-        CenterWheel.spinFor(1, seconds, -100, rpm);
+        //CenterWheel.spinFor(1, seconds, -100, rpm);
     }
     else if (alliance == Alliance::red) {
         Drivetrain.turnFor(90, degrees);
-        CenterWheel.spinFor(1, seconds, 100, rpm);
+        //CenterWheel.spinFor(1, seconds, 100, rpm);
     }
 
     // go towards corner
     Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
     Drivetrain.drive(forward);
-    task::sleep(1000);
+    task::sleep(2000);
     Drivetrain.stop();
 
     // get right up at corner
@@ -48,12 +48,14 @@ void left4(Alliance alliance) {
     else if (alliance == Alliance::red)
         Drivetrain.turnFor(45, degrees);
     Drivetrain.drive(forward);
-    task::sleep(1000);
-    Drivetrain.stop();
+    task::sleep(2500);
+    lift(-50, false);
+    //task::sleep(2000);
+    Drivetrain.stop(hold);
 
     // drop
-    lift(-50);
     drop();
+    lift(180);
     Drivetrain.driveFor(-10, inches);
 }
 
@@ -61,36 +63,36 @@ void left4_pickup3(Alliance alliance) {
     // go to cube and drop cube on top
     grab();
     lift(CUBE_HEIGHT_DEG, false);
-    Drivetrain.driveFor(16, inches);
+    Drivetrain.driveFor(TILE_LENGTH + 2*CUBE_WIDTH - ROBOT_LENGTH, inches);
     drop();
     lift(-CUBE_HEIGHT_DEG);
 
     // grab new stack of 2
     grab();
-    lift(CUBE_HEIGHT_DEG, false);
+    lift(CUBE_HEIGHT_DEG);
 
     // go forward and put on top of other cube
     Drivetrain.driveFor(CUBE_WIDTH, inches);
     drop();
     lift(-CUBE_HEIGHT_DEG);
     grab();
-    lift(60);
+    lift(60, false);
 
     // go backwards
-    Drivetrain.driveFor(-12 - CUBE_WIDTH, inches);
+    Drivetrain.driveFor(-11 - CUBE_WIDTH, inches);
     if (alliance == Alliance::blue) {
         Drivetrain.turnFor(-90, degrees);
-        CenterWheel.spinFor(1, seconds, -100, rpm);
+        //CenterWheel.spinFor(1, seconds, -100, rpm);
     }
     else if (alliance == Alliance::red) {
         Drivetrain.turnFor(90, degrees);
-        CenterWheel.spinFor(1, seconds, 100, rpm);
+        //CenterWheel.spinFor(1, seconds, 100, rpm);
     }
 
     // go towards corner
     Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
     Drivetrain.drive(forward);
-    task::sleep(1000);
+    task::sleep(2000);
     Drivetrain.stop();
 
     // get right up at corner
@@ -99,12 +101,13 @@ void left4_pickup3(Alliance alliance) {
     else if (alliance == Alliance::red)
         Drivetrain.turnFor(45, degrees);
     Drivetrain.drive(forward);
-    task::sleep(1000);
+    task::sleep(3000);
     Drivetrain.stop();
 
     // drop
     lift(-50);
     drop();
+    lift(270);
     Drivetrain.driveFor(-10, inches);
 }
 
@@ -220,7 +223,7 @@ void align() {
 void grab() {
     Claw.spin(reverse);
     task::sleep(1000);
-    Claw.stop();
+    //Claw.stop();
 }
 
 void drop() {
