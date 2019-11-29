@@ -4,6 +4,7 @@ void autonomous();
 
 void left4(Alliance);
 void far_right_1(Alliance);
+void just_drop_cube();
 void blue_right_tower();
 
 void align();

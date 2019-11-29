@@ -87,6 +87,22 @@ void far_right_1(Alliance alliance) {
     Drivetrain.driveFor(-10, inches);
 }
 
+void just_drop_cube() {
+    // pick up cube
+    grab();
+    lift(60);
+
+    // move forward extremely slowly
+    Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
+    Drivetrain.drive(forward);
+    task::sleep(1000);
+    Drivetrain.stop();
+
+    // drop cube
+    lift(-50);
+    drop();
+}
+
 void blue_right_tower() {
     // Drive forward to first green cube
     Drivetrain.driveFor(TILE_LENGTH - LENGTH_TO_CLAW, inches);
