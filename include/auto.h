@@ -1,7 +1,8 @@
+enum Alliance {red, blue};
+
 void autonomous();
 
-void blue_left4();
-void red_left4();
+void left4(Alliance);
 void blue_right_tower();
 void blue_far_right_1();
 

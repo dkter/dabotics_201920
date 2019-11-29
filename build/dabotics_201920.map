@@ -72,6 +72,18 @@ Discarded input sections
  .llvm_addrsig  0x00000000        0xb build/src/main.o
  .text          0x00000000        0x0 build/src/auto.o
  .group         0x00000000        0xc build/src/auto.o
+ .text._Z10blue_left4v
+                0x00000000      0x170 build/src/auto.o
+ .ARM.exidx.text._Z10blue_left4v
+                0x00000000        0x8 build/src/auto.o
+ .text._Z16blue_right_towerv
+                0x00000000      0x178 build/src/auto.o
+ .ARM.exidx.text._Z16blue_right_towerv
+                0x00000000        0x8 build/src/auto.o
+ .text._Z16blue_far_right_1v
+                0x00000000       0xe8 build/src/auto.o
+ .ARM.exidx.text._Z16blue_far_right_1v
+                0x00000000        0x8 build/src/auto.o
  .text._Z5alignv
                 0x00000000      0x120 build/src/auto.o
  .ARM.exidx.text._Z5alignv
@@ -2203,9 +2215,9 @@ Linker script and memory map
                 0x03800558        0x4 build/src/auto.o
                 0x03800558                autonomous()
  *fill*         0x0380055c        0x4 
- .text._Z10blue_left4v
+ .text._Z9red_left4v
                 0x03800560      0x170 build/src/auto.o
-                0x03800560                blue_left4()
+                0x03800560                red_left4()
  .text._Z4grabv
                 0x038006d0       0x38 build/src/auto.o
                 0x038006d0                grab()
@@ -3138,7 +3150,7 @@ Linker script and memory map
  .ARM.exidx.text._Z10autonomousv
                 0x038049ac        0x0 build/src/auto.o
                                   0x8 (size before relaxing)
- .ARM.exidx.text._Z10blue_left4v
+ .ARM.exidx.text._Z9red_left4v
                 0x038049ac        0x0 build/src/auto.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text._Z4grabv

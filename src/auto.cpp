@@ -6,47 +6,52 @@ constexpr float ROBOT_LENGTH = 18;
 constexpr float CUBE_WIDTH = 5.5;
 constexpr float LENGTH_TO_CLAW = ROBOT_LENGTH - (CUBE_WIDTH / 2);
 constexpr float TILE_LENGTH = 24;
+constexpr float CUBE_HEIGHT_DEG = 75;
 constexpr int VERY_SLOW_SPEED = 25; //rpm
 
 void autonomous() {
-    blue_left4();
+    left4(Alliance::blue);
 }
 
-void blue_left4() {
-    Drivetrain.driveFor(16, inches);
+void left4(Alliance alliance) {
+    // go to cube and drop cube on top
     grab();
-    lift(60);
-    Drivetrain.driveFor(-12, inches);
-    Drivetrain.turnFor(-90, degrees);
-    CenterWheel.spinFor(1, seconds, -100, rpm );
-    Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
-    Drivetrain.drive(forward);
-    task::sleep(1000);
-    Drivetrain.stop();
-    Drivetrain.turnFor(-45, degrees);
-    Drivetrain.drive(forward);
-    task::sleep(1000);
-    Drivetrain.stop();
-    lift(-50);
+    lift(CUBE_HEIGHT_DEG);
+    Drivetrain.driveFor(16, inches);
     drop();
-    Drivetrain.driveFor(-10, inches);
-}
+    lift(-CUBE_HEIGHT_DEG);
 
-void red_left4() {
-    Drivetrain.driveFor(16, inches);
+    // grab new stack of 2
     grab();
     lift(60);
+
+    // go backwards
     Drivetrain.driveFor(-12, inches);
-    Drivetrain.turnFor(90, degrees);
-    CenterWheel.spinFor(1, seconds, 100, rpm );
+    if (alliance == Alliance::blue) {
+        Drivetrain.turnFor(-90, degrees);
+        CenterWheel.spinFor(1, seconds, -100, rpm);
+    }
+    else if (alliance == Alliance::red) {
+        Drivetrain.turnFor(90, degrees);
+        CenterWheel.spinFor(1, seconds, 100, rpm);
+    }
+
+    // go towards corner
     Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
     Drivetrain.drive(forward);
     task::sleep(1000);
     Drivetrain.stop();
-    Drivetrain.turnFor(45, degrees);
+
+    // get right up at corner
+    if (alliance == Alliance::blue)
+        Drivetrain.turnFor(-45, degrees);
+    else if (alliance == Alliance::red)
+        Drivetrain.turnFor(45, degrees);
     Drivetrain.drive(forward);
     task::sleep(1000);
     Drivetrain.stop();
+
+    // drop
     lift(-50);
     drop();
     Drivetrain.driveFor(-10, inches);
