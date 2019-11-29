@@ -10,7 +10,7 @@ constexpr float CUBE_HEIGHT_DEG = 100;
 constexpr int VERY_SLOW_SPEED = 25; //rpm
 
 void autonomous() {
-    just_drop_cube(Alliance::blue);
+    far_right_1(Alliance::blue);
 }
 
 void left4(Alliance alliance) {
@@ -115,7 +115,7 @@ void far_right_1(Alliance alliance) {
     // go to cube and drop cube on top
     grab();
     lift(CUBE_HEIGHT_DEG, false);
-    Drivetrain.driveFor(TILE_LENGTH - LENGTH_TO_CLAW, inches);
+    Drivetrain.driveFor(TILE_LENGTH - LENGTH_TO_CLAW + 2, inches);
     drop();
     lift(-CUBE_HEIGHT_DEG);
 
@@ -123,20 +123,25 @@ void far_right_1(Alliance alliance) {
     grab();
     lift(60);
 
+    // drive forward a bit
+    Drivetrain.driveFor(10, inches);
+
     // turn towards corner and drive forward
     if (alliance == Alliance::blue)
-        Drivetrain.turnFor(-135, degrees);
-    else if (alliance == Alliance::red)
         Drivetrain.turnFor(135, degrees);
+    else if (alliance == Alliance::red)
+        Drivetrain.turnFor(-135, degrees);
+    Drivetrain.driveFor(10, inches);
 
     Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
     Drivetrain.drive(forward);
-    task::sleep(2000);
+    task::sleep(3000);
     Drivetrain.stop();
 
     // drop cubes
     lift(-50);
     drop();
+    lift(120);
 
     Drivetrain.driveFor(-10, inches);
 }
