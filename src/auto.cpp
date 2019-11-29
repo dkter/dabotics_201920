@@ -29,26 +29,15 @@ void left4(Alliance alliance) {
     Drivetrain.driveFor(-12, inches);
     if (alliance == Alliance::blue) {
         Drivetrain.turnFor(-90, degrees);
-        CenterWheel.spinFor(1, seconds, -100, rpm);
     }
     else if (alliance == Alliance::red) {
         Drivetrain.turnFor(90, degrees);
-        CenterWheel.spinFor(1, seconds, 100, rpm);
     }
 
     // go towards corner
     Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
     Drivetrain.drive(forward);
-    task::sleep(1000);
-    Drivetrain.stop();
-
-    // get right up at corner
-    if (alliance == Alliance::blue)
-        Drivetrain.turnFor(-45, degrees);
-    else if (alliance == Alliance::red)
-        Drivetrain.turnFor(45, degrees);
-    Drivetrain.drive(forward);
-    task::sleep(1000);
+    task::sleep(2000);
     Drivetrain.stop();
 
     // drop
@@ -80,26 +69,15 @@ void left4_pickup3(Alliance alliance) {
     Drivetrain.driveFor(-12 - CUBE_WIDTH, inches);
     if (alliance == Alliance::blue) {
         Drivetrain.turnFor(-90, degrees);
-        CenterWheel.spinFor(1, seconds, -100, rpm);
     }
     else if (alliance == Alliance::red) {
         Drivetrain.turnFor(90, degrees);
-        CenterWheel.spinFor(1, seconds, 100, rpm);
     }
 
     // go towards corner
     Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
     Drivetrain.drive(forward);
-    task::sleep(1000);
-    Drivetrain.stop();
-
-    // get right up at corner
-    if (alliance == Alliance::blue)
-        Drivetrain.turnFor(-45, degrees);
-    else if (alliance == Alliance::red)
-        Drivetrain.turnFor(45, degrees);
-    Drivetrain.drive(forward);
-    task::sleep(1000);
+    task::sleep(2000);
     Drivetrain.stop();
 
     // drop
