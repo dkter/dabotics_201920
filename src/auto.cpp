@@ -57,6 +57,36 @@ void left4(Alliance alliance) {
     Drivetrain.driveFor(-10, inches);
 }
 
+void far_right_1(Alliance alliance) {
+    // go to cube and drop cube on top
+    grab();
+    lift(CUBE_HEIGHT_DEG, false);
+    Drivetrain.driveFor(TILE_LENGTH - LENGTH_TO_CLAW, inches);
+    drop();
+    lift(-CUBE_HEIGHT_DEG);
+
+    // grab stack of 2
+    grab();
+    lift(60);
+
+    // turn towards corner and drive forward
+    if (alliance == Alliance::blue)
+        Drivetrain.turnFor(-135, degrees);
+    else if (alliance == Alliance::red)
+        Drivetrain.turnFor(135, degrees);
+
+    Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
+    Drivetrain.drive(forward);
+    task::sleep(2000);
+    Drivetrain.stop();
+
+    // drop cubes
+    lift(-50);
+    drop();
+
+    Drivetrain.driveFor(-10, inches);
+}
+
 void blue_right_tower() {
     // Drive forward to first green cube
     Drivetrain.driveFor(TILE_LENGTH - LENGTH_TO_CLAW, inches);
@@ -93,25 +123,6 @@ void blue_right_tower() {
 
     Drivetrain.driveFor(-10, inches);
 }
-
-void blue_far_right_1() {
-    Drivetrain.driveFor(TILE_LENGTH - LENGTH_TO_CLAW, inches);
-
-    grab();
-    lift(60);
-    Drivetrain.turnFor(-135, degrees);
-
-    Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
-    Drivetrain.drive(forward);
-    task::sleep(2000);
-    Drivetrain.stop();
-
-    lift(-50);
-    drop();
-
-    Drivetrain.driveFor(-10, inches);
-}
-
 
 void align() {
     int TOLERANCE = 10;
