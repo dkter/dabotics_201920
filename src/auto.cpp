@@ -16,14 +16,14 @@ void autonomous() {
 void left4(Alliance alliance) {
     // go to cube and drop cube on top
     grab();
-    lift(CUBE_HEIGHT_DEG);
+    lift(CUBE_HEIGHT_DEG, false);
     Drivetrain.driveFor(16, inches);
     drop();
     lift(-CUBE_HEIGHT_DEG);
 
     // grab new stack of 2
     grab();
-    lift(60);
+    lift(60, false);
 
     // go backwards
     Drivetrain.driveFor(-12, inches);
@@ -152,8 +152,12 @@ void drop() {
 }
 
 void lift(int deg) {
+    lift(deg, true);
+}
+
+void lift(int deg, bool waitForCompletion) {
     ShaftLeft.spinFor(deg, degrees, false);
-    ShaftRight.spinFor(deg, degrees);
+    ShaftRight.spinFor(deg, degrees, waitForCompletion);
 }
 
 // void turn(int deg) {
