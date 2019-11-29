@@ -57,6 +57,57 @@ void left4(Alliance alliance) {
     Drivetrain.driveFor(-10, inches);
 }
 
+void left4_pickup3(Alliance alliance) {
+    // go to cube and drop cube on top
+    grab();
+    lift(CUBE_HEIGHT_DEG, false);
+    Drivetrain.driveFor(16, inches);
+    drop();
+    lift(-CUBE_HEIGHT_DEG);
+
+    // grab new stack of 2
+    grab();
+    lift(CUBE_HEIGHT_DEG, false);
+
+    // go forward and put on top of other cube
+    Drivetrain.driveFor(CUBE_WIDTH, inches);
+    drop();
+    lift(-CUBE_HEIGHT_DEG);
+    grab();
+    lift(60);
+
+    // go backwards
+    Drivetrain.driveFor(-12 - CUBE_WIDTH, inches);
+    if (alliance == Alliance::blue) {
+        Drivetrain.turnFor(-90, degrees);
+        CenterWheel.spinFor(1, seconds, -100, rpm);
+    }
+    else if (alliance == Alliance::red) {
+        Drivetrain.turnFor(90, degrees);
+        CenterWheel.spinFor(1, seconds, 100, rpm);
+    }
+
+    // go towards corner
+    Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
+    Drivetrain.drive(forward);
+    task::sleep(1000);
+    Drivetrain.stop();
+
+    // get right up at corner
+    if (alliance == Alliance::blue)
+        Drivetrain.turnFor(-45, degrees);
+    else if (alliance == Alliance::red)
+        Drivetrain.turnFor(45, degrees);
+    Drivetrain.drive(forward);
+    task::sleep(1000);
+    Drivetrain.stop();
+
+    // drop
+    lift(-50);
+    drop();
+    Drivetrain.driveFor(-10, inches);
+}
+
 void far_right_1(Alliance alliance) {
     // go to cube and drop cube on top
     grab();
