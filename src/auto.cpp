@@ -10,7 +10,7 @@ constexpr float CUBE_HEIGHT_DEG = 100;
 constexpr int VERY_SLOW_SPEED = 25; //rpm
 
 void autonomous() {
-    left4(Alliance::red);
+    left4(Alliance::blue);
 }
 
 void left4(Alliance alliance) {
@@ -22,6 +22,7 @@ void left4(Alliance alliance) {
     lift(-CUBE_HEIGHT_DEG);
 
     // grab new stack of 2
+    Drivetrain.driveFor(-0.5, inches);
     grab();
     lift(60, false);
 
@@ -39,7 +40,7 @@ void left4(Alliance alliance) {
     // go towards corner
     Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
     Drivetrain.drive(forward);
-    task::sleep(2000);
+    task::sleep(1500);
     Drivetrain.stop();
 
     // get right up at corner
@@ -49,13 +50,19 @@ void left4(Alliance alliance) {
         Drivetrain.turnFor(45, degrees);
     Drivetrain.drive(forward);
     task::sleep(2500);
-    lift(-50, false);
-    task::sleep(2000);
+    lift(-50);
     Drivetrain.stop(hold);
 
     // drop
     drop();
     lift(180);
+
+    // push back
+    Drivetrain.driveFor(-3, inches);
+    lift(-150);
+    grab();
+    Drivetrain.driveFor(3, inches);
+    drop();
     Drivetrain.driveFor(-10, inches);
 }
 

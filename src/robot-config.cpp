@@ -25,7 +25,7 @@ signature Vision7__SIG_6 = signature (6, 0, 0, 0, 0, 0, 0, 2.5, 0);
 signature Vision7__SIG_7 = signature (7, 0, 0, 0, 0, 0, 0, 2.5, 0);
 vision Vision7 = vision (PORT7, 50, Vision7__SIG_1, Vision7__SIG_2, Vision7__SIG_3, Vision7__SIG_4, Vision7__SIG_5, Vision7__SIG_6, Vision7__SIG_7);
 /*vex-vision-config:end*/
-motor Claw = motor(PORT1, ratio18_1, false);
+motor Claw = motor(PORT4, ratio18_1, false);
 
 // VEXcode generated functions
 // define variables used for controlling motors based on controller inputs
