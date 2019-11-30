@@ -10,7 +10,7 @@ constexpr float CUBE_HEIGHT_DEG = 100;
 constexpr int VERY_SLOW_SPEED = 25; //rpm
 
 void autonomous() {
-    far_right_1(Alliance::blue);
+    left4(Alliance::red);
 }
 
 void left4(Alliance alliance) {
@@ -50,7 +50,7 @@ void left4(Alliance alliance) {
     Drivetrain.drive(forward);
     task::sleep(2500);
     lift(-50, false);
-    //task::sleep(2000);
+    task::sleep(2000);
     Drivetrain.stop(hold);
 
     // drop

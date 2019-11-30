@@ -1,3 +1,58 @@
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Drivetrain           drivetrain    20, 11          
+// ShaftRight           motor         3               
+// ShaftLeft            motor         10              
+// CenterWheel          motor         16              
+// Vision7              vision        7               
+// Claw                 motor         1               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Drivetrain           drivetrain    20, 11          
+// ShaftRight           motor         3               
+// ShaftLeft            motor         2               
+// CenterWheel          motor         16              
+// Vision7              vision        7               
+// Claw                 motor         1               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Drivetrain           drivetrain    20, 11          
+// ShaftRight           motor         3               
+// ShaftLeft            motor         4               
+// CenterWheel          motor         16              
+// Vision7              vision        7               
+// Claw                 motor         1               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Drivetrain           drivetrain    20, 11          
+// ShaftRight           motor         3               
+// ShaftLeft            motor         2               
+// CenterWheel          motor         16              
+// Vision7              vision        7               
+// Claw                 motor         1               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Drivetrain           drivetrain    20, 11          
+// ShaftRight           motor         3               
+// ShaftLeft            motor         10              
+// CenterWheel          motor         16              
+// Vision7              vision        7               
+// Claw                 motor         1               
+// ---- END VEXCODE CONFIGURED DEVICES ----
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
