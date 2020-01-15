@@ -1,3 +1,5 @@
+#include "XDrivetrain.h"
+
 using namespace vex;
 
 extern brain Brain;
@@ -6,10 +8,7 @@ using signature = vision::signature;
 
 // VEXcode devices
 extern controller Controller1;
-extern drivetrain Drivetrain;
-extern motor ShaftRight;
-extern motor ShaftLeft;
-extern motor CenterWheel;
+extern XDrivetrain Drivetrain;
 extern signature Vision7__SIG_1;
 extern signature Vision7__SIG_2;
 extern signature Vision7__SIG_3;
