@@ -1,4 +1,5 @@
 #include "vex.h"
+#include "XDrivetrain.h"
 
 using namespace vex;
 using signature = vision::signature;
