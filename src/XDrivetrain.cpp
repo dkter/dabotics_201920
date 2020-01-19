@@ -32,9 +32,9 @@ void XDrivetrain::turnFor(turnType direction, double angle, rotationUnits angle_
     double dist = angle_radians * radius;
     double revs = dist / wheel_circumference;
 
-    FrontLeftWheel.spinFor(wheel_direction, revs, rotationUnits::rev);
-    FrontRightWheel.spinFor(wheel_direction, revs, rotationUnits::rev);
-    BackLeftWheel.spinFor(wheel_direction, revs, rotationUnits::rev);
+    FrontLeftWheel.spinFor(wheel_direction, revs, rotationUnits::rev, false);
+    FrontRightWheel.spinFor(wheel_direction, revs, rotationUnits::rev, false);
+    BackLeftWheel.spinFor(wheel_direction, revs, rotationUnits::rev, false);
     BackRightWheel.spinFor(wheel_direction, revs, rotationUnits::rev);
 }
 
