@@ -31,5 +31,6 @@ class XDrivetrain {
         double wheel_circumference;
 
         double _angleToRadians(double angle, rotationUnits angle_units);
+        double _distanceToInches(double distance, distanceUnits distance_units);
         directionType _getWheelDirection(turnType direction);
 };
