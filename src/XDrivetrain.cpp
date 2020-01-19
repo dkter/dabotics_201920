@@ -17,15 +17,19 @@ XDrivetrain::XDrivetrain (motor frontLeftWheel,
     wheelCircumference = M_PI * wheelDiameter;
 }
 
-void XDrivetrain::drive(double angle, rotationUnits angle_units) {
-    double angle_radians = _angleToRadians(angle, angle_units);
-    double positive_vel = cos(angle_radians + M_PI_4) * driveVelocity;
-    double negative_vel = sin(angle_radians + M_PI_4) * driveVelocity;
+void XDrivetrain::drive(double angle) {
+    double positive_vel = cos(angle + M_PI_4) * driveVelocity;
+    double negative_vel = sin(angle + M_PI_4) * driveVelocity;
 
     FrontLeftWheel.spin(directionType::fwd, positive_vel, driveVelocityUnits);
     FrontRightWheel.spin(directionType::rev, negative_vel, driveVelocityUnits);
     BackLeftWheel.spin(directionType::fwd, negative_vel, driveVelocityUnits);
     BackRightWheel.spin(directionType::rev, positive_vel, driveVelocityUnits);
+}
+
+void XDrivetrain::drive(double angle, rotationUnits angle_units) {
+    double angle_radians = _angleToRadians(angle, angle_units);
+    drive(angle_radians);    
 }
 
 void XDrivetrain::driveFor(double angle, rotationUnits angle_units, double distance, distanceUnits distance_units) {

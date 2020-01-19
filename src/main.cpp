@@ -1,93 +1,11 @@
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         3               
-// ShaftLeft            motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         4               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         3               
-// ShaftLeft            motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         3               
-// ShaftLeft            motor         2               
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         3               
-// ShaftLeft            motor         4               
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         3               
-// ShaftLeft            motor         2               
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight           motor         3               
-// ShaftLeft            motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// Claw                 motor         1               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-/*----------------------------------------------------------------------------*/
-/*                                                                            */
-/*    Module:       main.cpp                                                  */
-/*    Author:       C:\Users\me                                               */
-/*    Created:      Fri Nov 22 2019                                           */
-/*    Description:  V5 project                                                */
-/*                                                                            */
-/*----------------------------------------------------------------------------*/
-
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Claw                 motor         1               
-// Drivetrain           drivetrain    20, 11          
-// ShaftRight          motor         2               
-// ShaftLeft           motor         10              
-// CenterWheel          motor         16              
-// Vision7              vision        7               
-// ---- END VEXCODE CONFIGURED DEVICES ----
+#include <cmath>
+#include <tuple>
 
 #include "vex.h"
 #include "auto.h"
 #include "main.h"
+
+#include "robot-config.h"
 
 using namespace vex;
 
@@ -97,8 +15,6 @@ int main() {
     // Initializing Robot Configuration. DO NOT REMOVE!
     vexcodeInit();
     
-    ShaftLeft.setStopping(hold);
-    ShaftRight.setStopping(hold);
     Claw.setStopping(hold);
 
     Competition.autonomous(autonomous);
@@ -123,19 +39,16 @@ void selfControl(){
             p = preciseSub;
         }
 
-        // Shaft control
-        if (Controller1.ButtonUp.pressing()){
-            ShaftLeft.spin(forward, shaftSpeed - p, percent);
-            ShaftRight.spin(forward, shaftSpeed - p, percent);
-        }
-        else if (Controller1.ButtonDown.pressing()){
-            ShaftLeft.spin(reverse, shaftSpeed - p, percent);
-            ShaftRight.spin(reverse, shaftSpeed - p, percent);
-        }
-        else {
-            ShaftLeft.stop();
-            ShaftRight.stop();
-        }
+        // Driving
+        double angle;
+        double velocity;
+        std::tie(angle, velocity) = getJoystickVector();
+        Drivetrain.drive(angle);
+
+        // Turning
+        double turn = Controller1.Axis1.position(percentUnits::pct);
+        Drivetrain.setTurnVelocity(turn, velocityUnits::pct);
+        Drivetrain.turn(turnType::right);
 
         // Claw control
         if (Controller1.ButtonL2.pressing()){
@@ -148,19 +61,16 @@ void selfControl(){
             Claw.stop();
         }
 
-        // Center wheel control
-        if (Controller1.Axis4.position() < 0){
-            CenterWheel.spin(forward, Controller1.Axis4.position(percent) - p, percent);
-        }
-        else if (Controller1.Axis4.position() > 0) {
-            CenterWheel.spin(forward, Controller1.Axis4.position(percent) + p, percent);
-        } 
-        else {
-            CenterWheel.setVelocity(0, percent);
-        }
-
         if (Controller1.ButtonB.pressing()) {align(visionWidth, offset);}
     }
+}
+
+std::tuple<double, double> getJoystickVector() {
+    double x = Controller1.Axis4.position(percentUnits::pct);
+    double y = Controller1.Axis3.position(percentUnits::pct);
+    double angle = atan2(y, x);
+    double value = (x + y) / 2;
+    return std::make_tuple(angle, value);
 }
 
 // Green must be set up
@@ -171,14 +81,14 @@ void align(int visionWidth, int offset){
     Vision7.takeSnapshot(Vision7__SIG_1);
 
     if (Vision7.objects[0].centerX > (visionWidth/2 + offset)){
-        CenterWheel.spin(reverse, 30, percent);
+        Drivetrain.drive(M_PI_2);
         wait(sprintTime, seconds);
-        CenterWheel.stop();
+        Drivetrain.stop();
     } 
     else if (Vision7.objects[0].centerX < (visionWidth/2 - offset)){
-        CenterWheel.spin(forward, 30, percent);
+        Drivetrain.drive(-M_PI_2);
         wait(sprintTime, seconds);
-        CenterWheel.stop();
+        Drivetrain.stop();
     }
 
 }

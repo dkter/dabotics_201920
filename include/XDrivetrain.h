@@ -12,6 +12,7 @@ class XDrivetrain {
                      double height,
                      double wheelDiameter);
 
+        void drive(double angle);
         void drive(double angle, rotationUnits angle_units);
         void driveFor(double angle, rotationUnits angle_units,
                       double distance, distanceUnits distance_units);
