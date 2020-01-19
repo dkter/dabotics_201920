@@ -7,38 +7,43 @@ XDrivetrain::XDrivetrain (motor frontLeftWheel,
                           motor backRightWheel,
                           double width,
                           double height,
-                          double wheel_diameter)
+                          double wheelDiameter)
     : FrontLeftWheel(frontLeftWheel),
       FrontRightWheel(frontRightWheel),
       BackLeftWheel(backLeftWheel),
       BackRightWheel(backRightWheel)
 {
     radius = sqrt(width*width + height*height) / 2;
-    wheel_circumference = M_PI * wheel_diameter;
+    wheelCircumference = M_PI * wheelDiameter;
 }
 
 void XDrivetrain::drive(double angle, rotationUnits angle_units) {
     double angle_radians = _angleToRadians(angle, angle_units);
-    double positive_vel = cos(angle_radians + M_PI_4) * 100;
-    double negative_vel = sin(angle_radians + M_PI_4) * 100;
+    double positive_vel = cos(angle_radians + M_PI_4) * driveVelocity;
+    double negative_vel = sin(angle_radians + M_PI_4) * driveVelocity;
 
-    FrontLeftWheel.spin(directionType::fwd, positive_vel, percentUnits::pct);
-    FrontRightWheel.spin(directionType::rev, negative_vel, percentUnits::pct);
-    BackLeftWheel.spin(directionType::fwd, negative_vel, percentUnits::pct);
-    BackRightWheel.spin(directionType::rev, positive_vel, percentUnits::pct);
+    FrontLeftWheel.spin(directionType::fwd, positive_vel, driveVelocityUnits);
+    FrontRightWheel.spin(directionType::rev, negative_vel, driveVelocityUnits);
+    BackLeftWheel.spin(directionType::fwd, negative_vel, driveVelocityUnits);
+    BackRightWheel.spin(directionType::rev, positive_vel, driveVelocityUnits);
 }
 
 void XDrivetrain::driveFor(double angle, rotationUnits angle_units, double distance, distanceUnits distance_units) {
     double angle_radians = _angleToRadians(angle, angle_units);
-    double positive_vel = cos(angle_radians + M_PI_4) * 100;
-    double negative_vel = sin(angle_radians + M_PI_4) * 100;
+    double positive_vel = cos(angle_radians + M_PI_4) * driveVelocity;
+    double negative_vel = sin(angle_radians + M_PI_4) * driveVelocity;
     double distance_inches = _distanceToInches(distance, distance_units);
-    double revs = distance_inches / wheel_circumference;
+    double revs = distance_inches / wheelCircumference;
 
-    FrontLeftWheel.spinFor(directionType::fwd, revs, rotationUnits::rev, positive_vel, velocityUnits::pct, false);
-    FrontRightWheel.spinFor(directionType::rev, revs, rotationUnits::rev, negative_vel, velocityUnits::pct, false);
-    BackLeftWheel.spinFor(directionType::fwd, revs, rotationUnits::rev, negative_vel, velocityUnits::pct, false);
-    BackRightWheel.spinFor(directionType::rev, revs, rotationUnits::rev, positive_vel, velocityUnits::pct, false);
+    FrontLeftWheel.spinFor(directionType::fwd, revs, rotationUnits::rev, positive_vel, driveVelocityUnits, false);
+    FrontRightWheel.spinFor(directionType::rev, revs, rotationUnits::rev, negative_vel, driveVelocityUnits, false);
+    BackLeftWheel.spinFor(directionType::fwd, revs, rotationUnits::rev, negative_vel, driveVelocityUnits, false);
+    BackRightWheel.spinFor(directionType::rev, revs, rotationUnits::rev, positive_vel, driveVelocityUnits, false);
+}
+
+void XDrivetrain::setDriveVelocity(double velocity, velocityUnits velocity_units) {
+    driveVelocity = velocity;
+    driveVelocityUnits = velocity_units;
 }
 
 void XDrivetrain::turn(turnType direction) {
@@ -54,12 +59,19 @@ void XDrivetrain::turnFor(turnType direction, double angle, rotationUnits angle_
     directionType wheel_direction = _getWheelDirection(direction);
     double angle_radians = _angleToRadians(angle, angle_units);
     double dist = angle_radians * radius;
-    double revs = dist / wheel_circumference;
+    double revs = dist / wheelCircumference;
 
     FrontLeftWheel.spinFor(wheel_direction, revs, rotationUnits::rev, false);
     FrontRightWheel.spinFor(wheel_direction, revs, rotationUnits::rev, false);
     BackLeftWheel.spinFor(wheel_direction, revs, rotationUnits::rev, false);
     BackRightWheel.spinFor(wheel_direction, revs, rotationUnits::rev);
+}
+
+void XDrivetrain::setTurnVelocity(double velocity, velocityUnits velocity_units) {
+    FrontLeftWheel.setVelocity(velocity, velocity_units);
+    FrontRightWheel.setVelocity(velocity, velocity_units);
+    BackLeftWheel.setVelocity(velocity, velocity_units);
+    BackRightWheel.setVelocity(velocity, velocity_units);
 }
 
 void XDrivetrain::stop() {
