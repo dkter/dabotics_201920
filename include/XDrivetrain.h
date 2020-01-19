@@ -1,20 +1,24 @@
+#include "vex.h"
+
 using namespace vex;
 
 class XDrivetrain {
     public:
-        XDrivetrain (motor FrontLeftWheel,
-                     motor FrontRightWheel,
-                     motor BackLeftWheel,
-                     motor BackRightWheel,
+        XDrivetrain (motor frontLeftWheel,
+                     motor frontRightWheel,
+                     motor backLeftWheel,
+                     motor backRightWheel,
                      double width,
                      double height);
 
-        void drive(double angle, rotationUnits units);
+        void drive(double angle, rotationUnits angle_units);
         void driveFor(double angle, rotationUnits angle_units,
                       double distance, distanceUnits distance_units);
 
-        void turn(directionType direction);
-        void turnFor(directionType direction, double angle, rotationUnits angle_units);
+        void turn(turnType direction);
+        void turnFor(turnType direction, double angle, rotationUnits angle_units);
+
+        void stop();
 
 
     private:
@@ -22,6 +26,7 @@ class XDrivetrain {
         motor FrontRightWheel;
         motor BackLeftWheel;
         motor BackRightWheel;
-        double width;
-        double height;
+        double radius;
+
+        directionType _getWheelDirection(turnType direction);
 };
