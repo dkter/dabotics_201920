@@ -9,7 +9,8 @@ class XDrivetrain {
                      motor backLeftWheel,
                      motor backRightWheel,
                      double width,
-                     double height);
+                     double height,
+                     double wheel_diameter);
 
         void drive(double angle, rotationUnits angle_units);
         void driveFor(double angle, rotationUnits angle_units,
@@ -27,6 +28,8 @@ class XDrivetrain {
         motor BackLeftWheel;
         motor BackRightWheel;
         double radius;
+        double wheel_circumference;
 
+        double _angleToRadians(double angle, rotationUnits angle_units);
         directionType _getWheelDirection(turnType direction);
 };
