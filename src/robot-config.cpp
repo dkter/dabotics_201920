@@ -12,9 +12,9 @@ brain  Brain;
 controller Controller1 = controller(primary);
 motor FrontLeftWheel = motor(PORT1, ratio18_1, false);
 motor FrontRightWheel = motor(PORT2, ratio18_1, false);
-motor BackLeftWheel = motor(PORT3, ratio18_1, false);
-motor BackRightWheel = motor(PORT4, ratio18_1, false);
-XDrivetrain Drivetrain = XDrivetrain(FrontLeftWheel, FrontRightWheel, BackLeftWheel, BackRightWheel, 18, 18, 4);
+motor BackLeftWheel = motor(PORT3, ratio18_1, true);
+motor BackRightWheel = motor(PORT4, ratio18_1, true);
+XDrivetrain Drivetrain = XDrivetrain(FrontLeftWheel, FrontRightWheel, BackLeftWheel, BackRightWheel, 12, 12, 4);
 
 /*vex-vision-config:begin*/
 signature Vision7__SIG_1 = signature (1, 0, 0, 0, 0, 0, 0, 2.5, 0);

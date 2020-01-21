@@ -29,7 +29,7 @@ void XDrivetrain::drive(double angle) {
 
 void XDrivetrain::drive(double angle, rotationUnits angle_units) {
     double angle_radians = _angleToRadians(angle, angle_units);
-    drive(angle_radians);    
+    drive(angle_radians);
 }
 
 void XDrivetrain::driveFor(double angle, rotationUnits angle_units, double distance, distanceUnits distance_units) {
