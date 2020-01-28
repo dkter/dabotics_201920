@@ -69,7 +69,7 @@ std::tuple<double, double> getJoystickVector() {
     double x = Controller1.Axis4.position(percentUnits::pct);
     double y = Controller1.Axis3.position(percentUnits::pct);
     double angle = atan2(x, y);
-    double value = x + y;
+    double value = sqrt(x*x + y*y);
     return std::make_tuple(angle, value);
 }
 
