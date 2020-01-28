@@ -21,10 +21,10 @@ void XDrivetrain::drive(double angle) {
     double positive_vel = cos(angle + M_PI_4) * driveVelocity;
     double negative_vel = sin(angle + M_PI_4) * driveVelocity;
 
-    FrontLeftWheel.spin(directionType::fwd, positive_vel, driveVelocityUnits);
-    FrontRightWheel.spin(directionType::rev, negative_vel, driveVelocityUnits);
-    BackLeftWheel.spin(directionType::fwd, negative_vel, driveVelocityUnits);
-    BackRightWheel.spin(directionType::rev, positive_vel, driveVelocityUnits);
+    FrontLeftWheel.spin(directionType::rev, negative_vel, driveVelocityUnits);
+    FrontRightWheel.spin(directionType::fwd, positive_vel, driveVelocityUnits);
+    BackLeftWheel.spin(directionType::rev, positive_vel, driveVelocityUnits);
+    BackRightWheel.spin(directionType::fwd, negative_vel, driveVelocityUnits);
 }
 
 void XDrivetrain::drive(double angle, rotationUnits angle_units) {
@@ -39,10 +39,10 @@ void XDrivetrain::driveFor(double angle, rotationUnits angle_units, double dista
     double distance_inches = _distanceToInches(distance, distance_units);
     double revs = distance_inches / wheelCircumference;
 
-    FrontLeftWheel.spinFor(directionType::fwd, revs, rotationUnits::rev, positive_vel, driveVelocityUnits, false);
-    FrontRightWheel.spinFor(directionType::rev, revs, rotationUnits::rev, negative_vel, driveVelocityUnits, false);
-    BackLeftWheel.spinFor(directionType::fwd, revs, rotationUnits::rev, negative_vel, driveVelocityUnits, false);
-    BackRightWheel.spinFor(directionType::rev, revs, rotationUnits::rev, positive_vel, driveVelocityUnits, false);
+    FrontLeftWheel.spinFor(directionType::rev, revs, rotationUnits::rev, negative_vel, driveVelocityUnits, false);
+    FrontRightWheel.spinFor(directionType::fwd, revs, rotationUnits::rev, positive_vel, driveVelocityUnits, false);
+    BackLeftWheel.spinFor(directionType::rev, revs, rotationUnits::rev, positive_vel, driveVelocityUnits, false);
+    BackRightWheel.spinFor(directionType::fwd, revs, rotationUnits::rev, negative_vel, driveVelocityUnits, false);
 }
 
 void XDrivetrain::setDriveVelocity(double velocity, velocityUnits velocity_units) {
@@ -53,10 +53,10 @@ void XDrivetrain::setDriveVelocity(double velocity, velocityUnits velocity_units
 void XDrivetrain::turn(turnType direction) {
     directionType wheel_direction = _getWheelDirection(direction);
 
-    FrontLeftWheel.spin(wheel_direction);
-    FrontRightWheel.spin(wheel_direction);
-    BackLeftWheel.spin(wheel_direction);
-    BackRightWheel.spin(wheel_direction);
+    FrontLeftWheel.spin(wheel_direction, turnVelocity, turnVelocityUnits);
+    FrontRightWheel.spin(wheel_direction, turnVelocity, turnVelocityUnits);
+    BackLeftWheel.spin(wheel_direction, turnVelocity, turnVelocityUnits);
+    BackRightWheel.spin(wheel_direction, turnVelocity, turnVelocityUnits);
 }
 
 void XDrivetrain::turnFor(turnType direction, double angle, rotationUnits angle_units) {
@@ -72,10 +72,8 @@ void XDrivetrain::turnFor(turnType direction, double angle, rotationUnits angle_
 }
 
 void XDrivetrain::setTurnVelocity(double velocity, velocityUnits velocity_units) {
-    FrontLeftWheel.setVelocity(velocity, velocity_units);
-    FrontRightWheel.setVelocity(velocity, velocity_units);
-    BackLeftWheel.setVelocity(velocity, velocity_units);
-    BackRightWheel.setVelocity(velocity, velocity_units);
+    turnVelocity = velocity;
+    turnVelocityUnits = velocity_units;
 }
 
 void XDrivetrain::stop() {

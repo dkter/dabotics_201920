@@ -33,7 +33,9 @@ class XDrivetrain {
         double radius;
         double wheelCircumference;
         double driveVelocity{100};
+        double turnVelocity{100};
         velocityUnits driveVelocityUnits{velocityUnits::pct};
+        velocityUnits turnVelocityUnits{velocityUnits::pct};
 
         double _angleToRadians(double angle, rotationUnits angle_units);
         double _distanceToInches(double distance, distanceUnits distance_units);
