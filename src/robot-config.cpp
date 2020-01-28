@@ -10,10 +10,10 @@ brain  Brain;
 
 // VEXcode device constructors
 controller Controller1 = controller(primary);
-motor FrontLeftWheel = motor(PORT1, ratio18_1, false);
-motor FrontRightWheel = motor(PORT2, ratio18_1, false);
-motor BackLeftWheel = motor(PORT3, ratio18_1, true);
-motor BackRightWheel = motor(PORT4, ratio18_1, true);
+motor FrontLeftWheel = motor(PORT3, ratio18_1, false);
+motor FrontRightWheel = motor(PORT4, ratio18_1, true);
+motor BackLeftWheel = motor(PORT5, ratio18_1, true);
+motor BackRightWheel = motor(PORT6, ratio18_1, false);
 XDrivetrain Drivetrain = XDrivetrain(FrontLeftWheel, FrontRightWheel, BackLeftWheel, BackRightWheel, 12, 12, 4);
 
 /*vex-vision-config:begin*/
