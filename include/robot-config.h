@@ -18,6 +18,8 @@ extern signature Vision7__SIG_6;
 extern signature Vision7__SIG_7;
 extern vision Vision7;
 extern motor Claw;
+extern motor LiftL;
+extern motor LiftR;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Text.

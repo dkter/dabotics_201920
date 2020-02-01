@@ -43,13 +43,32 @@ void selfControl(){
         double angle;
         double velocity;
         std::tie(angle, velocity) = getJoystickVector();
-        Drivetrain.setDriveVelocity(velocity, velocityUnits::pct);
-        Drivetrain.drive(angle);
-
         // Turning
-        // double turn = Controller1.Axis1.position(percentUnits::pct);
-        // Drivetrain.setTurnVelocity(turn, velocityUnits::pct);
-        // Drivetrain.turn(turnType::right);
+        double turn = Controller1.Axis1.position(percentUnits::pct);
+        if (velocity) {
+            Drivetrain.setDriveVelocity(velocity, velocityUnits::pct);
+            Drivetrain.drive(angle);
+        } else if (turn) {
+            Drivetrain.setTurnVelocity(turn, velocityUnits::pct);
+            Drivetrain.turn(turnType::right);
+        }
+        else {
+            Drivetrain.stop();
+        }
+
+        // Lift control
+        if (Controller1.ButtonUp.pressing()){
+            LiftL.spin(forward, shaftSpeed - p, percent);
+            LiftR.spin(forward, shaftSpeed - p, percent);
+        }
+        else if (Controller1.ButtonDown.pressing()){
+            LiftL.spin(reverse, shaftSpeed - p, percent);
+            LiftR.spin(reverse, shaftSpeed - p, percent);
+        }
+        else {
+            LiftL.stop();
+            LiftR.stop();
+        }
 
         // Claw control
         if (Controller1.ButtonL2.pressing()){
