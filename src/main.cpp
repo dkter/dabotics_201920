@@ -22,29 +22,35 @@ int main() {
 }
 
 void selfControl(){
-    int shaftSpeed = 50;
     int clawSpeed = 50;
-    int preciseSub = 40;
     int visionWidth = 316;
     int offset = 20;
 
-    int p = 0;
+    bool p = false;
+    int driveSpeedAdj;
+    int liftSpeed;
 
     while (true){
         // Precision hold
-        if (Controller1.ButtonA.pressing()){
-            p = 0;
+        p = Controller1.ButtonA.pressing();
+        if (p) {
+            driveSpeedAdj = 0;
+            liftSpeed = 100;
         }
-        else{
-            p = preciseSub;
+        else {
+            driveSpeedAdj = 30;
+            liftSpeed = 70;
         }
 
         // Driving
         double angle;
         double velocity;
         std::tie(angle, velocity) = getJoystickVector();
+        velocity *= (100.0 - driveSpeedAdj) / 100.0;
         // Turning
         double turn = Controller1.Axis1.position(percentUnits::pct);
+
+        // Move robot
         if (velocity) {
             Drivetrain.setDriveVelocity(velocity, velocityUnits::pct);
             Drivetrain.drive(angle);
@@ -58,12 +64,12 @@ void selfControl(){
 
         // Lift control
         if (Controller1.ButtonUp.pressing()){
-            LiftL.spin(forward, shaftSpeed - p, percent);
-            LiftR.spin(forward, shaftSpeed - p, percent);
+            LiftL.spin(forward, liftSpeed, percent);
+            LiftR.spin(forward, liftSpeed, percent);
         }
         else if (Controller1.ButtonDown.pressing()){
-            LiftL.spin(reverse, shaftSpeed - p, percent);
-            LiftR.spin(reverse, shaftSpeed - p, percent);
+            LiftL.spin(reverse, liftSpeed, percent);
+            LiftR.spin(reverse, liftSpeed, percent);
         }
         else {
             LiftL.stop();
