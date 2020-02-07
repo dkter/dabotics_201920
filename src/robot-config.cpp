@@ -28,6 +28,7 @@ vision Vision7 = vision (PORT7, 50, Vision7__SIG_1, Vision7__SIG_2, Vision7__SIG
 /*vex-vision-config:end*/
 motor Claw = motor(PORT4, ratio18_1, false);
 motor LiftL = motor(PORT11, ratio36_1, false);
+motor LiftL2 = motor(PORT13, ratio18_1, false);
 motor LiftR = motor(PORT12, ratio36_1, true);
 
 

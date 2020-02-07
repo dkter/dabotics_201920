@@ -65,14 +65,17 @@ void selfControl(){
         // Lift control
         if (Controller1.ButtonUp.pressing()){
             LiftL.spin(forward, liftSpeed, percent);
+            LiftL2.spin(forward, liftSpeed, percent);
             LiftR.spin(forward, liftSpeed, percent);
         }
         else if (Controller1.ButtonDown.pressing()){
             LiftL.spin(reverse, liftSpeed, percent);
+            LiftL2.spin(reverse, liftSpeed, percent);
             LiftR.spin(reverse, liftSpeed, percent);
         }
         else {
             LiftL.stop();
+            LiftL2.stop();
             LiftR.stop();
         }
 

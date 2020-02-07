@@ -19,6 +19,7 @@ extern signature Vision7__SIG_7;
 extern vision Vision7;
 extern motor Claw;
 extern motor LiftL;
+extern motor LiftL2;
 extern motor LiftR;
 
 /**
