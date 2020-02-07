@@ -30,6 +30,10 @@ void selfControl(){
     int driveSpeedAdj;
     int liftSpeed;
 
+    LiftL.setBrake(hold);
+    LiftL2.setBrake(hold);
+    LiftR.setBrake(hold);
+
     while (true){
         // Precision hold
         p = Controller1.ButtonA.pressing();
@@ -39,7 +43,7 @@ void selfControl(){
         }
         else {
             driveSpeedAdj = 30;
-            liftSpeed = 70;
+            liftSpeed = 40;
         }
 
         // Driving
