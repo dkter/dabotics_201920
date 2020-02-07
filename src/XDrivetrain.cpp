@@ -108,9 +108,9 @@ double XDrivetrain::_distanceToInches(double distance, distanceUnits distance_un
 
 directionType XDrivetrain::_getWheelDirection(turnType direction) {
     if (direction == turnType::right)
-        return directionType::fwd;
-    else if (direction == turnType::left)
         return directionType::rev;
+    else if (direction == turnType::left)
+        return directionType::fwd;
     
     return directionType::fwd;
 }
