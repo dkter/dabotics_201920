@@ -37,12 +37,12 @@ void XDrivetrain::driveFor(double angle, rotationUnits angle_units, double dista
     double positive_vel = cos(angle_radians + M_PI_4) * driveVelocity;
     double negative_vel = sin(angle_radians + M_PI_4) * driveVelocity;
     double distance_inches = _distanceToInches(distance, distance_units);
-    double revs = distance_inches / wheelCircumference;
+    double revs = distance_inches / wheelCircumference / 1.41;
 
     FrontLeftWheel.spinFor(directionType::rev, revs, rotationUnits::rev, negative_vel, driveVelocityUnits, false);
     FrontRightWheel.spinFor(directionType::fwd, revs, rotationUnits::rev, positive_vel, driveVelocityUnits, false);
     BackLeftWheel.spinFor(directionType::rev, revs, rotationUnits::rev, positive_vel, driveVelocityUnits, false);
-    BackRightWheel.spinFor(directionType::fwd, revs, rotationUnits::rev, negative_vel, driveVelocityUnits, false);
+    BackRightWheel.spinFor(directionType::fwd, revs, rotationUnits::rev, negative_vel, driveVelocityUnits, true);
 }
 
 void XDrivetrain::setDriveVelocity(double velocity, velocityUnits velocity_units) {
