@@ -53,6 +53,7 @@ void selfControl(){
         velocity *= (100.0 - driveSpeedAdj) / 100.0;
         // Turning
         double turn = Controller1.Axis1.position(percentUnits::pct);
+        turn *= (100.0 - driveSpeedAdj) / 100.0;
 
         // Move robot
         if (velocity) {
