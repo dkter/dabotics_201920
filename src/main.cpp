@@ -89,6 +89,19 @@ void selfControl(){
         }
 
         // Claw control
+        /*
+        if (Controller1.ButtonL2.pressing()){
+            Claw.spinTo(CLAW_ANGLE, degrees);
+            //Claw.spin(forward, 100, percent);
+        }
+        else if (Controller1.ButtonR2.pressing()){
+            Claw.spin(reverse, 100, percent);
+        }
+        else {
+            //Claw.stop(hold);
+        }
+        */
+        // Claw control
         if (Controller1.ButtonL2.pressing()){
             Claw.spin(forward, clawSpeed, percent);
         }
