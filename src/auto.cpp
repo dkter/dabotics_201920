@@ -176,21 +176,12 @@ void far_right_1(Alliance alliance) {
 void just_drop_cube(Alliance alliance) {
     // pick up cube
     grab();
-    lift(60);
+    lift(100);
 
     // move forward extremely slowly
     Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
     Drivetrain.drive(0, degrees);
     task::sleep(1000);
-    Drivetrain.stop();
-
-    if (alliance == Alliance::blue)
-        Drivetrain.turnFor(left, 45, degrees);
-    else if (alliance == Alliance::red)
-        Drivetrain.turnFor(right, 45, degrees);
-    Drivetrain.drive(0, degrees);
-    lift(-50, false);
-    task::sleep(2500);
     Drivetrain.stop();
 
     // drop cube
