@@ -22,17 +22,18 @@ int main() {
 }
 
 void selfControl(){
-    int clawSpeed = 50;
     int visionWidth = 316;
     int offset = 20;
 
     bool p = false;
     int driveSpeedAdj;
     int liftSpeed;
+    int clawSpeed;
 
     LiftL.setBrake(hold);
     LiftL2.setBrake(hold);
     LiftR.setBrake(hold);
+    Claw.setBrake(hold);
 
     while (true){
         // Precision hold
@@ -40,10 +41,12 @@ void selfControl(){
         if (p) {
             driveSpeedAdj = 0;
             liftSpeed = 100;
+            clawSpeed = 50;
         }
         else {
             driveSpeedAdj = 30;
             liftSpeed = 40;
+            clawSpeed = 20;
         }
 
         // Driving
@@ -86,10 +89,10 @@ void selfControl(){
 
         // Claw control
         if (Controller1.ButtonL2.pressing()){
-            Claw.spin(forward, clawSpeed - p, percent);
+            Claw.spin(forward, clawSpeed, percent);
         }
         else if (Controller1.ButtonR2.pressing()){
-            Claw.spin(reverse, clawSpeed - p, percent);
+            Claw.spin(reverse, clawSpeed, percent);
         }
         else {
             Claw.stop();
