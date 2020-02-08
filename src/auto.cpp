@@ -3,15 +3,17 @@
 #include "vex.h"
 #include "VisionSensor.h"
 
-constexpr float ROBOT_LENGTH = 18;
+constexpr float ROBOT_LENGTH = 17;
 constexpr float CUBE_WIDTH = 5.5;
-constexpr float LENGTH_TO_CLAW = ROBOT_LENGTH - (CUBE_WIDTH / 2);
+constexpr float LENGTH_TO_CLAW = 14;
 constexpr float TILE_LENGTH = 24;
-constexpr float CUBE_HEIGHT_DEG = 100;
+constexpr float CUBE_HEIGHT_DEG = 120;
 constexpr int VERY_SLOW_SPEED = 25; //rpm
+constexpr int CLAW_ANGLE = 35;
 
 void autonomous() {
     far_right_1(Alliance::red);
+    //Drivetrain.driveFor(0, degrees, 1, inches);
 }
 
 void left4(Alliance alliance) {
@@ -115,37 +117,60 @@ void left4_pickup3(Alliance alliance) {
 void far_right_1(Alliance alliance) {
     // go to cube and drop cube on top
     grab();
-    lift(CUBE_HEIGHT_DEG, false);
-    Drivetrain.driveFor(0, degrees, TILE_LENGTH - LENGTH_TO_CLAW + 1.5, inches);
+    lift(CUBE_HEIGHT_DEG);
+    Drivetrain.setDriveVelocity(30, velocityUnits::pct);
+    Drivetrain.driveFor(0, degrees, TILE_LENGTH - LENGTH_TO_CLAW - 1, inches);
     drop();
     lift(-CUBE_HEIGHT_DEG);
 
     // grab stack of 2
     Drivetrain.driveFor(180, degrees, 1, inches);
     grab();
-    lift(60);
+    lift(100);
+
+    
+    // rotate and drive sideways
+    if (alliance == Alliance::blue) {
+        Drivetrain.turnFor(right, 90, degrees);
+        Drivetrain.driveFor(90, degrees, TILE_LENGTH + 5, inches);
+    }
+    else if (alliance == Alliance::red) {
+        Drivetrain.turnFor(left, 90, degrees);
+        Drivetrain.driveFor(-90, degrees, TILE_LENGTH + 5, inches);
+    }
+
+    // drive forward
+    Drivetrain.driveFor(0, degrees, TILE_LENGTH, inches);
+    lift(-100);
+    drop();
+    
+    // go back
+    lift(200);
+    Drivetrain.driveFor(180, degrees, TILE_LENGTH, inches);
+    
+
 
     // drive forward a bit
-    Drivetrain.driveFor(0, degrees, 10, inches);
+    // Drivetrain.driveFor(0, degrees, 10, inches);
 
-    // turn towards corner and drive forward
-    if (alliance == Alliance::blue)
-        Drivetrain.turnFor(right, 135, degrees);
-    else if (alliance == Alliance::red)
-        Drivetrain.turnFor(left, 135, degrees);
-    Drivetrain.driveFor(0, degrees, 10, inches);
+    // // turn towards corner and drive forward
+    // if (alliance == Alliance::blue)
+    //     Drivetrain.turnFor(right, 135, degrees);
+    // else if (alliance == Alliance::red)
+    //     Drivetrain.turnFor(left, 135, degrees);
+    // Drivetrain.driveFor(0, degrees, 10, inches);
 
-    Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
-    Drivetrain.drive(0, degrees);
-    task::sleep(2400);
-    Drivetrain.stop();
+    // Drivetrain.setDriveVelocity(VERY_SLOW_SPEED, rpm);
+    // Drivetrain.drive(0, degrees);
+    // task::sleep(2400);
+    // Drivetrain.stop();
 
-    // drop cubes
-    lift(-50);
-    drop();
-    lift(120);
+    // // drop cubes
+    // lift(-50);
+    // drop();
+    // lift(120);
 
-    Drivetrain.driveFor(180, degrees, 10, inches);
+    // Drivetrain.driveFor(180, degrees, 10, inches);
 }
 
 void just_drop_cube(Alliance alliance) {
@@ -243,9 +268,7 @@ void grab() {
 }
 
 void drop() {
-    Claw.spin(forward);
-    task::sleep(1000);
-    Claw.stop();
+    Claw.spinTo(CLAW_ANGLE, degrees);
 }
 
 void lift(int deg) {
@@ -254,5 +277,6 @@ void lift(int deg) {
 
 void lift(int deg, bool waitForCompletion) {
     LiftL.spinFor(deg, degrees, false);
+    LiftL2.spinFor(deg, degrees, false);
     LiftR.spinFor(deg, degrees, waitForCompletion);
 }

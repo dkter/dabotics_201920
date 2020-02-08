@@ -15,6 +15,10 @@ int main() {
     // Initializing Robot Configuration. DO NOT REMOVE!
     vexcodeInit();
     
+    LiftL.setBrake(hold);
+    LiftL2.setBrake(hold);
+    LiftR.setBrake(hold);
+    Claw.setBrake(hold);
     Claw.setStopping(hold);
 
     Competition.autonomous(autonomous);
@@ -22,6 +26,8 @@ int main() {
 }
 
 void selfControl(){
+    int CLAW_ANGLE = 35;
+
     int visionWidth = 316;
     int offset = 20;
 
@@ -29,11 +35,6 @@ void selfControl(){
     int driveSpeedAdj;
     int liftSpeed;
     int clawSpeed;
-
-    LiftL.setBrake(hold);
-    LiftL2.setBrake(hold);
-    LiftR.setBrake(hold);
-    Claw.setBrake(hold);
 
     while (true){
         // Precision hold

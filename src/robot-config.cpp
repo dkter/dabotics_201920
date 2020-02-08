@@ -14,7 +14,7 @@ motor FrontLeftWheel = motor(PORT3, ratio18_1, false);
 motor FrontRightWheel = motor(PORT7, ratio18_1, false);
 motor BackLeftWheel = motor(PORT5, ratio18_1, true);
 motor BackRightWheel = motor(PORT6, ratio18_1, true);
-XDrivetrain Drivetrain = XDrivetrain(FrontLeftWheel, FrontRightWheel, BackLeftWheel, BackRightWheel, 8.5, 14, 4);
+XDrivetrain Drivetrain = XDrivetrain(FrontLeftWheel, FrontRightWheel, BackLeftWheel, BackRightWheel, 8, 13, 4);
 
 /*vex-vision-config:begin*/
 signature Vision7__SIG_1 = signature (1, 0, 0, 0, 0, 0, 0, 2.5, 0);
