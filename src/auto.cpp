@@ -19,7 +19,7 @@ void autonomous() {
 void left4(Alliance alliance) {
     // go to cube and drop cube on top
     grab();
-    lift(CUBE_HEIGHT_DEG, false);
+    lift(CUBE_HEIGHT_DEG);
     Drivetrain.driveFor(0, degrees, TILE_LENGTH + 2*CUBE_WIDTH - ROBOT_LENGTH, inches);
     drop();
     lift(-CUBE_HEIGHT_DEG);
@@ -27,40 +27,28 @@ void left4(Alliance alliance) {
     // grab new stack of 2
     Drivetrain.driveFor(180, degrees, 0.5, inches);
     grab();
-    lift(60, false);
+    lift(100);
 
     // go backwards
     Drivetrain.driveFor(180, degrees, 11, inches);
     if (alliance == Alliance::blue) {
         Drivetrain.turnFor(left, 90, degrees);
+        Drivetrain.driveFor(90, degrees, TILE_LENGTH + 5, inches);
     }
     else if (alliance == Alliance::red) {
         Drivetrain.turnFor(right, 90, degrees);
+        Drivetrain.driveFor(-90, degrees, TILE_LENGTH + 5, inches);
     }
 
     // go towards corner
     Drivetrain.driveFor(0, degrees, 6, inches);
 
-    // get right up at corner
-    if (alliance == Alliance::blue)
-        Drivetrain.turnFor(left, 45, degrees);
-    else if (alliance == Alliance::red)
-        Drivetrain.turnFor(right, 45, degrees);
-    Drivetrain.drive(0, degrees);
-    task::sleep(2000);
-    lift(-50);
-    Drivetrain.stop(); // TODO implement holding mode if this doesn't work
-
     // drop
+    lift(-100);
     drop();
     lift(180);
 
-    // push back
-    Drivetrain.driveFor(180, degrees, 3, inches);
-    lift(-150);
-    grab();
-    Drivetrain.driveFor(0, degrees, 3, inches);
-    drop();
+    // go back
     Drivetrain.driveFor(180, degrees, 10, inches);
 }
 
